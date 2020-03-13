@@ -1,33 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('../DB/User');
+const Marks = require('../DB/Marks');
 const route = express.Router();
 
-route.post('/', async (req, res) => {
-  const {FirstName,LastName,Email,Password} = req.body;
-  let user = {};
-  // console.log(req.body)
-  user.FirstName = FirstName;
-  user.LastName = LastName;
-  user.Email=Email;
-  user.Password=Password;
-  // console.log(user)
-  let userModel = new User(user);
-  await userModel.save();
-  res.json(userModel);  
-});
-
 route.get('/:Username',(req,res)=>{
+  console.log("Came control")
   var str=req.params.Username;
   // res.writeHead(200, {'Content-Type': 'application/json'});
   console.log(str)
   var arr = str.split(",")
-  // console.log(arr);
+  console.log(arr);
   // const password=req.params.Password
   // console.log(name)
-  User.find({
-    "Email":arr[0],
-    "Password":arr[1]
+  Marks.find({
+    "FirstName":arr[0],
+    "LastName":arr[1]
   })
   .exec()
   .then(doc => {
